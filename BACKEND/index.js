@@ -3,6 +3,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const userRoute = require ("./routes/userRoute");
 const messageRoute = require("./routes/messageRoute");
+const chatsRoute = require("./routes/chatRoute");
 
 const app = express();
 require("dotenv").config()
@@ -11,6 +12,7 @@ app.use(express.json());
 app.use(cors());
 app.use("/api/users", userRoute);  
 app.use("/api/messages", messageRoute);
+app.use("/api/chats", chatsRoute);
 
 app.get("/", (req, res) =>{
     res.send("Welcome our chat online APIs...");
