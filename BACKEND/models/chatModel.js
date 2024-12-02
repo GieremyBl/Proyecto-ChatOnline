@@ -7,5 +7,5 @@ const chatSchema = new mongoose.Schema({
     timestamps: true,
 }
 );
-const chatModel = mongoose.nodel("Chat",chatSchema);
+const chatModel = mongoose.model("Chat",chatSchema);
 module.exports = chatModel;

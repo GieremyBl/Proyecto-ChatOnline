@@ -16,16 +16,16 @@ const registerUser = async (req, res) => {
         const existingUser = await userModel.findOne({ email });
 
     if (existingUser) 
-        return res.status(400).json("User with the given email already exists...");
+        return res.status(400).json("El usuario con la dirección de correo electrónico indicada ya existe...");
 
     if (!name || !email || !password) 
-        return res.status(400).json("All field are required...");
+        return res.status(400).json("Todos los campos son obligatorios...");
 
     if(validator.isEmail(email)) 
-        return res.status(400).json("Email must be a valid email...");
+        return res.status(400).json("El correo electrónico debe ser válido...");
 
     if(validator.isStrongPassword(password)) 
-        return res.status(400).json("Password must be a strong password...");
+        return res.status(400).json("La contraseña debe ser segura...");
 
     user = new userModel({name, email, password});
 
@@ -64,6 +64,28 @@ const registerUser = async (req, res) => {
         console.log(error);
         res.status(500).json(error);
     }
- }
+ };
+ const findUser = async(req, res) =>{
+    const userId = req.params.userId;
+    try{
+        const user = await userModel.findById(userId);
+        
+        res.status(200).json(user);
+    }catch (error){
+        console.log(error);
+        res.status(500).json(error);
+    }
+ };
 
-module.exports = {registerUser, loginUser};
+ const getUsers = async(req, res) =>{
+    try{
+        const users = await userModel.find();
+
+        res.status(200).json(users);
+    }catch (error){
+        console.log(error);
+        res.status(500).json(error);
+    }
+ };
+
+module.exports = {registerUser, loginUser, findUser, getUsers};
